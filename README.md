@@ -1,6 +1,6 @@
 # Utilities
 
-Personal shell configuration files for Zsh and Starship.
+My setup for Zimfw + Starship configuration.
 
 ## Contents
 - `.zshrc` Zsh configuration
@@ -8,11 +8,11 @@ Personal shell configuration files for Zsh and Starship.
 - `starship.toml` Starship prompt configuration
 
 ## Usage
-Review and adjust the files for your machine, then symlink them:
+Review and adjust the files for your machine, then copy them:
 
 ```sh
 mkdir -p ~/.config
-ln -sfn "$PWD/.zshrc" ~/.zshrc
-ln -sfn "$PWD/.zimrc" ~/.zimrc
-ln -sfn "$PWD/starship.toml" ~/.config/starship.toml
+cp -f "$PWD/.zshrc" ~/.zshrc
+cp -f "$PWD/.zimrc" ~/.zimrc
+cp -f "$PWD/starship.toml" ~/.config/starship.toml
 ```
