@@ -42,7 +42,9 @@ if [[ ! ${ZIM_HOME}/init.zsh -nt ${ZIM_CONFIG_FILE:-${ZDOTDIR:-${HOME}}/.zimrc} 
 fi
 if [[ -z ${ZIM_INIT_DONE-} ]]; then
   # Starship prompt needs to be initialized before the transient prompt module loads.
-  eval "$(starship init zsh)"
+  if (( ${+commands[starship]} )); then
+    eval "$(starship init zsh)"
+  fi
   # Transient prompt: hide previous prompts after each command
   TRANSIENT_PROMPT_TRANSIENT_PROMPT=''
   TRANSIENT_PROMPT_TRANSIENT_RPROMPT=''
@@ -55,7 +57,7 @@ fi
 autoload -Uz bashcompinit && bashcompinit
 
 # --- 4. CUSTOM TOOLS & VERSION MANAGEMENT ---
-# Load version managers and tool-specific scripts 7]
+# Load version managers and tool-specific scripts
 
 # zoxide (smart cd)
 if (( ${+commands[zoxide]} )); then

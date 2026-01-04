@@ -1,5 +1,5 @@
 "$schema" = 'https://starship.rs/config-schema.json'
-add_newline = false
+add_newline = true
 format = """
 $os\
 [](bg:secondary fg:primary)\
@@ -66,6 +66,63 @@ palette = "shadcn"
 [fill]
 symbol = "-"
 
+# --- Core modules ---
+[os]
+disabled = false
+style = "bg:primary fg:on_primary"
+format = "[ $symbol ]($style)"
+
+[os.symbols]
+Alpaquita = " "
+Alpine = " "
+AlmaLinux = " "
+Amazon = " "
+Android = " "
+AOSC = " "
+Arch = " "
+Artix = " "
+CachyOS = " "
+CentOS = " "
+Debian = " "
+DragonFly = " "
+Elementary = " "
+Emscripten = " "
+EndeavourOS = " "
+Fedora = " "
+FreeBSD = " "
+Garuda = "󰛓 "
+Gentoo = " "
+HardenedBSD = "󰞌 "
+Illumos = "󰈸 "
+Ios = "󰀷 "
+Kali = " "
+Linux = " "
+Mabox = " "
+Macos = " "
+Manjaro = " "
+Mariner = " "
+MidnightBSD = " "
+Mint = " "
+NetBSD = " "
+NixOS = " "
+Nobara = " "
+OpenBSD = "󰈺 "
+openSUSE = " "
+OracleLinux = "󰌷 "
+Pop = " "
+Raspbian = " "
+Redhat = " "
+RedHatEnterprise = " "
+RockyLinux = " "
+Redox = "󰀘 "
+Solus = "󰠳 "
+SUSE = " "
+Ubuntu = " "
+Unknown = " "
+Void = " "
+Windows = "󰍲 "
+Zorin = " "
+
 [directory]
 style = "fg:on_secondary bg:secondary"
 format = "[ $path ]($style)"
@@ -79,32 +136,23 @@ truncation_symbol = "…/"
 "Pictures" = " "
 "Developer" = "󰲋 "
 
-[os]
-disabled = false
-style = "bg:primary fg:on_primary"
-format = "[ $symbol ]($style)"
-
-[os.symbols]
-Windows = ""
-Ubuntu = ""
-SUSE = ""
-Raspbian = "󰐿"
-Mint = "󰣭"
-Macos = "󰀵"
-Manjaro = ""
-Linux = "󰌽"
-Gentoo = "󰣨"
-Fedora = "󰣛"
-Alpine = ""
-Amazon = ""
-Android = ""
-AOSC = ""
-Arch = "󰣇"
-Artix = "󰣇"
-CentOS = ""
-Debian = "󰣚"
-Redhat = "󱄛"
-RedHatEnterprise = "󱄛"
+# --- Git ---
+[custom.git_remote]
+command = """
+remote=$(git remote get-url origin 2>/dev/null || git remote get-url upstream 2>/dev/null)
+[ -z "$remote" ] && exit 1
+case "$remote" in
+  *github.com*) echo "" ;;
+  *gitlab.com*) echo "󰮠" ;;
+  *bitbucket.org*) echo "󰂨" ;;
+  *azure.com*|*visualstudio.com*) echo "" ;;
+  *codeberg.org*|*gitea*) echo "" ;;
+  *) echo "󰊢" ;;
+esac
+"""
+when = "git rev-parse --is-inside-work-tree >/dev/null 2>&1"
+style = "fg:on_tertiary bg:tertiary"
+format = "[ $output ]($style)"
 
 [git_branch]
 symbol = ""
@@ -125,23 +173,7 @@ added_style = "fg:on_tertiary bg:tertiary"
 deleted_style = "fg:on_tertiary bg:tertiary"
 format = '[+$added]($added_style) [-$deleted]($deleted_style)'
 
-[custom.git_remote]
-command = """
-remote=$(git remote get-url origin 2>/dev/null || git remote get-url upstream 2>/dev/null)
-[ -z "$remote" ] && exit 1
-case "$remote" in
-  *github.com*) echo "" ;;
-  *gitlab.com*) echo "󰮠" ;;
-  *bitbucket.org*) echo "󰂨" ;;
-  *azure.com*|*visualstudio.com*) echo "" ;;
-  *codeberg.org*|*gitea*) echo "" ;;
-  *) echo "󰊢" ;;
-esac
-"""
-when = "git rev-parse --is-inside-work-tree >/dev/null 2>&1"
-style = "fg:on_tertiary bg:tertiary"
-format = "[ $output ]($style)"
-
+# --- Programs / toolchains ---
 [nodejs]
 symbol = "󰎙"
 style = "bg:primary_container"
@@ -186,13 +218,12 @@ style = "bg:primary_container"
 format = '[[ $symbol ($version) ](fg:on_primary_container bg:primary_container)]($style)'
 
 [dart]
-symbol = ""
+symbol = ""
 style = "bg:primary_container"
 format = '[[ $symbol ($version) ](fg:on_primary_container bg:primary_container)]($style)'
 
-
 [dotnet]
-symbol = "󰪮"
+symbol = ""
 style = "bg:primary_container"
 format = '[[ $symbol ($version) ](fg:on_primary_container bg:primary_container)]($style)'
 
@@ -336,6 +367,7 @@ symbol = "󰰤"
 style = "bg:primary_container"
 format = '[[ $symbol ($version) ](fg:on_primary_container bg:primary_container)]($style)'
 
+# --- Status / time / system ---
 [time]
 disabled = false
 time_format = "%R" # Hour:Minute Format
@@ -378,34 +410,35 @@ vimcmd_replace_one_symbol = "[❮](bold fg:secondary_container)"
 vimcmd_replace_symbol = "[❮](bold fg:secondary_container)"
 vimcmd_visual_symbol = "[❮](bold fg:tertiary)"
 
+# --- Palette ---
 [palettes.shadcn]
-# Material 3 naming (light, mint-green accent)
-primary = "#dcfce7"
+# High-contrast light segments on black background
+primary = "#f8fafc"
 on_primary = "#0b0f14"
-primary_container = "#22c55e"
+primary_container = "#a7f3d0"
 on_primary_container = "#0b0f14"
-secondary = "#4ade80"
+secondary = "#d1d5db"
 on_secondary = "#0b0f14"
-secondary_container = "#34d399"
+secondary_container = "#cbd5e1"
 on_secondary_container = "#0b0f14"
-tertiary = "#10b981"
-on_tertiary = "#f8fafc"
-tertiary_container = "#6ee7b7"
+tertiary = "#94a3b8"
+on_tertiary = "#0b0f14"
+tertiary_container = "#e2e8f0"
 on_tertiary_container = "#0b0f14"
 error = "#ef4444"
-on_error = "#ffffff"
+on_error = "#0b0f14"
 error_container = "#fecaca"
 on_error_container = "#7f1d1d"
-background = "#f8fafc"
-on_background = "#0b0f14"
-surface = "#f8fafc"
-on_surface = "#0b0f14"
-surface_variant = "#e5e7eb"
-on_surface_variant = "#1f2937"
-outline = "#334155"
-outline_variant = "#475569"
+background = "#000000"
+on_background = "#ffffff"
+surface = "#0b0f14"
+on_surface = "#ffffff"
+surface_variant = "#111827"
+on_surface_variant = "#e5e7eb"
+outline = "#9ca3af"
+outline_variant = "#64748b"
 shadow = "#000000"
 scrim = "#000000"
 inverse_surface = "#0b0f14"
 inverse_on_surface = "#f8fafc"
-inverse_primary = "#4ade80"
+inverse_primary = "#a7f3d0"
