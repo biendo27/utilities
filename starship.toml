@@ -381,16 +381,16 @@ style = "bg:primary_container"
 format = '[[ $symbol ($version) ](fg:on_primary_container bg:primary_container)]($style)'
 
 # --- Status / time / system ---
+[cmd_duration]
+min_time = 500
+style = "fg:on_secondary_container bg:secondary_container"
+format = '[ took $duration]($style)'
+
 [time]
 disabled = false
 time_format = "%H:%M"
 style = "bg:secondary_container"
 format = '[[  $time ](fg:on_secondary_container bg:secondary_container)]($style)'
-
-[cmd_duration]
-min_time = 500
-style = "fg:on_secondary_container bg:secondary_container"
-format = '[took $duration ]($style)'
 
 [status]
 disabled = false
