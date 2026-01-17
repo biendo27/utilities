@@ -1,5 +1,6 @@
 "$schema" = 'https://starship.rs/config-schema.json'
 add_newline = true
+
 format = """
 $os\
 [](bg:secondary fg:primary)\
@@ -63,7 +64,7 @@ $hostname\
 \n$character"""
 palette = "shadcn"
 
-[fill]
+[fill] 
 symbol = "-"
 
 # --- Core modules ---
@@ -88,8 +89,8 @@ DragonFly = " "
 Elementary = " "
 Emscripten = " "
 EndeavourOS = " "
-Fedora = " "
-FreeBSD = " "
+Fedora = " "
+FreeBSD = "󰣠 "
 Garuda = "󰛓 "
 Gentoo = " "
 HardenedBSD = "󰞌 "
@@ -99,7 +100,7 @@ Kali = " "
 Linux = " "
 Mabox = " "
 Macos = " "
-Manjaro = " "
+Manjaro = "󱘊 "
 Mariner = " "
 MidnightBSD = " "
 Mint = " "
@@ -126,6 +127,8 @@ Zorin = " "
 [directory]
 style = "fg:on_secondary bg:secondary"
 format = "[ $path ]($style)"
+read_only = " "
+truncate_to_repo = true
 truncation_length = 3
 truncation_symbol = "…/"
 
@@ -162,6 +165,16 @@ format = '[[ $symbol $branch ](fg:on_tertiary bg:tertiary)]($style)'
 [git_status]
 style = "bg:tertiary"
 format = '[[($all_status$ahead_behind )](fg:on_tertiary bg:tertiary)]($style)'
+conflicted = "󰞇 "
+ahead = "⇡${count} "
+behind = "⇣${count} "
+diverged = "⇕⇡${ahead_count}⇣${behind_count} "
+untracked = "?${count} "
+stashed = "󰏗 "
+modified = "!${count} "
+staged = "+${count} "
+renamed = "»${count} "
+deleted = "✘${count} "
 
 [git_state]
 style = "bg:tertiary"
@@ -370,14 +383,14 @@ format = '[[ $symbol ($version) ](fg:on_primary_container bg:primary_container)]
 # --- Status / time / system ---
 [time]
 disabled = false
-time_format = "%R" # Hour:Minute Format
+time_format = "%H:%M"
 style = "bg:secondary_container"
 format = '[[  $time ](fg:on_secondary_container bg:secondary_container)]($style)'
 
 [cmd_duration]
 min_time = 500
 style = "fg:on_secondary_container bg:secondary_container"
-format = '[ $duration ]($style)'
+format = '[took $duration ]($style)'
 
 [status]
 disabled = false
@@ -412,7 +425,6 @@ vimcmd_visual_symbol = "[❮](bold fg:tertiary)"
 
 # --- Palette ---
 [palettes.shadcn]
-# High-contrast light segments on black background
 primary = "#f8fafc"
 on_primary = "#0b0f14"
 primary_container = "#a7f3d0"
